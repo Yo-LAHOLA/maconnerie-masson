@@ -18,10 +18,38 @@
         h1, h2, h3 { font-family: 'Lora', serif; }
 
         /* Navigation */
-        nav { background: white; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
-        .logo { font-size: 1.1rem; font-weight: 700; color: var(--stone-dark); text-decoration: none; letter-spacing: 1px; }
+        nav { 
+            background: white; 
+            padding: 1.5rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            height: 75px;
+        }
+        
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: var(--stone-dark); text-decoration: none; }
+        
         .nav-links a { text-decoration: none; color: var(--stone-dark); margin-left: 2rem; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .nav-links a:hover { color: var(--sand-gold); }
+
+        /* Bouton Burger */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--stone-dark);
+            border-radius: 2px;
+        }
 
         /* Hero Section A Propos */
         .about-hero {
@@ -105,19 +133,53 @@
             transition: 0.3s;
         }
 
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .about-hero { grid-template-columns: 1fr; }
             .about-image { height: 400px; order: 2; }
             .about-content { padding: 4rem 10%; order: 1; }
             .about-content h1 { font-size: 2.5rem; }
         }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active { display: flex; }
+
+            .nav-links a {
+                margin: 15px 0 !important;
+                margin-left: 0;
+                text-align: center;
+                width: 100%;
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html" class="logo">FRANÇOIS MASSON</a>
-        <div class="nav-links">
+        <div><a href="index.html" class="logo" style="text-decoration: none;">FRANÇOIS MASSON</a></div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-links" id="nav-links-menu">
             <a href="index.html">Accueil</a>
             <a href="projets.html">Réalisations</a>
             <a href="apropos.html" style="color: var(--sand-gold);">À Propos</a>
@@ -131,8 +193,7 @@
             <h1>Passionné par l'art de la pierre</h1>
             <p style="font-size: 1.2rem; color: var(--clay);">Installé depuis 2005 à La Charité-sur-Loire, François Masson met son expertise au service du bâti ancien.</p>
         </div>
-        <div class="about-image">
-            </div>
+        <div class="about-image"></div>
     </section>
 
     <div class="text-section">
@@ -153,7 +214,7 @@
         <p>Cette approche garantit non seulement une esthétique parfaite, intégrée au paysage local, mais assure surtout la longévité de la structure en évitant l'humidité et le poudrage des joints.</p>
 
         <div class="profile-signature">
-<img src="images/francois-masson.jpg" alt="François Masson X">
+            <img src="images/francois-masson.jpg" alt="François Masson">
             <div>
                 <strong>François Masson</strong><br>
                 <small>Artisan Maçon spécialisé Patrimoine</small>
@@ -166,6 +227,23 @@
         <p>Je me déplace sur site pour étudier votre projet et vous conseiller sur les meilleures solutions techniques.</p>
         <a href="contact.html" class="btn-gold">Discuter de mon projet</a>
     </section>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links-menu');
+
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
