@@ -18,9 +18,38 @@
         h1, h2, h3 { font-family: 'Lora', serif; }
 
         /* Navigation principale */
-        nav { background: white; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
-        .logo { font-size: 1.1rem; font-weight: 700; color: var(--stone-dark); text-decoration: none; letter-spacing: 1px; }
-        .nav-links a { text-decoration: none; color: var(--stone-dark); margin-left: 2rem; font-size: 0.9rem; font-weight: 600; }
+        nav { 
+            background: white; 
+            padding: 1.5rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            height: 75px; 
+        }
+        
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: var(--stone-dark); text-decoration: none; }
+        
+        .nav-links a { text-decoration: none; color: var(--stone-dark); margin-left: 2rem; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--sand-gold); }
+
+        /* Bouton Burger */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--stone-dark);
+            border-radius: 2px;
+        }
 
         .header-section { text-align: center; padding: 4rem 5% 2rem; background: white; }
         .header-section h1 { font-size: 2.8rem; margin-bottom: 1rem; }
@@ -33,7 +62,7 @@
             padding: 1rem;
             background: white;
             position: sticky;
-            top: 70px; /* Juste en dessous de la nav principale */
+            top: 75px; 
             z-index: 999;
             border-bottom: 1px solid #eee;
             flex-wrap: wrap;
@@ -59,7 +88,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 3rem 20px; }
 
         /* Style des sections par métier */
-        .category-block { margin-bottom: 5rem; scroll-margin-top: 140px; } /* scroll-margin pour compenser les menus collants */
+        .category-block { margin-bottom: 5rem; scroll-margin-top: 140px; } 
         .category-info { margin-bottom: 2rem; border-left: 4px solid var(--sand-gold); padding-left: 1.5rem; }
         .category-info h2 { font-size: 2rem; margin-bottom: 0.5rem; }
         .category-info p { font-style: italic; color: var(--clay); max-width: 800px; }
@@ -92,19 +121,51 @@
         footer { background: var(--stone-dark); color: white; text-align: center; padding: 4rem 5%; margin-top: 4rem; }
         .btn-call { display: inline-block; background: var(--sand-gold); color: white; padding: 1rem 2rem; text-decoration: none; font-weight: 600; margin-top: 1.5rem; }
 
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active { display: flex; }
+
+            .nav-links a {
+                margin: 15px 0 !important;
+                margin-left: 0;
+                text-align: center;
+                width: 100%;
+                font-size: 1.1rem;
+            }
+
             .header-section h1 { font-size: 2rem; }
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
             .photo-item { height: 180px; }
-            .project-index { top: 60px; }
+            .project-index { top: 75px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo">FRANÇOIS MASSON</a>
-        <div class="nav-links">
+<nav>
+        <div><a href="index.html" class="logo">FRANÇOIS MASSON</a></div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-links" id="nav-links-menu">
             <a href="index.html">Accueil</a>
             <a href="projets.html" style="color: var(--sand-gold);">Réalisations</a>
             <a href="contact.html">Contact</a>
@@ -268,6 +329,28 @@
         <p>06 83 76 16 75</p>
         <a href="tel:0683761675" class="btn-call">Appeler maintenant</a>
     </footer>
+
+<script>
+	const mobileMenu = document.getElementById('mobile-menu');
+	const navLinks = document.getElementById('nav-links-menu');
+
+	if (mobileMenu)
+	{
+		mobileMenu.addEventListener('click', () =>
+		{
+			navLinks.classList.toggle('active');
+		});
+	}
+
+	// Fermer le menu burger lors d'un clic
+	document.querySelectorAll('.nav-links a').forEach(link =>
+	{
+		link.addEventListener('click', () =>
+		{
+			navLinks.classList.remove('active');
+		});
+	});
+</script>
 
 </body>
 </html>
